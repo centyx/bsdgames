@@ -122,26 +122,30 @@ main(argc, argv)
 	else
 		(void)printf("The Moon will be ");
 	if ((int)today == 100)
-		(void)printf("Full\n");
+		(void)printf("Full 🌕\n");
 	else if (!(int)today)
-		(void)printf("New\n");
+		(void)printf("New 🌑\n");
 	else {
 		tomorrow = potm(days + 1);
 		if ((int)today == 50)
 			(void)printf("%s\n", tomorrow > today ?
-			    "at the First Quarter" : "at the Last Quarter");
+			    "at the First Quarter 🌓" : "at the Last Quarter 🌗");
 			/* today is 0.5 too big, but it doesn't matter here
 			 * since the phase is changing fast enough
 			 */
 		else {
 			today -= 0.5;		/* Now it might matter */
-			(void)printf("%s ", tomorrow > today ?
-			    "Waxing" : "Waning");
-			if (today > 50)
-				(void)printf("Gibbous (%1.0f%% of Full)\n",
+                        if(tomorrow > today && today > 50)
+				(void)printf("Waxing Gibbous 🌔 (%1.0f%% of Full)\n",
 				    today);
-			else if (today < 50)
-				(void)printf("Crescent (%1.0f%% of Full)\n",
+                        if(tomorrow < today && today > 50)
+				(void)printf("Waning Gibbous 🌖 (%1.0f%% of Full)\n",
+				    today);
+                        if(tomorrow > today && today < 50)
+				(void)printf("Waxing Cresent 🌒 (%1.0f%% of Full)\n",
+				    today);
+                        if(tomorrow < today && today < 50)
+				(void)printf("Waning Cresent 🌘 (%1.0f%% of Full)\n",
 				    today);
 		}
 	}
